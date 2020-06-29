@@ -16,6 +16,7 @@ type conf struct {
 
 type translation struct {
     Services      map[string]string `yaml:"services"`
+    Suffixes      map[string]string `yaml:"suffixes"`
 }
 
 type discovery struct {

@@ -183,7 +183,7 @@ func createListMetricsOutput(dimensions []*cloudwatch.Dimension, namespace *stri
 func dimensionsToCliString(dimensions []*cloudwatch.Dimension) (output string) {
 	for _, dim := range dimensions {
 		output = output + "Name=" + *dim.Name + ",Value=" + *dim.Value
-		fmt.Println(output)
+		//fmt.Println(output)
 	}
 	return output
 }
@@ -619,9 +619,15 @@ func fixServiceName(serviceName *string, dimensions []*cloudwatch.Dimension) str
 		for _, dimension := range dimensions {
 			if *dimension.Name == "TargetGroup" {
 				tgSuffix = "tg"
+				if sfxTranslation, ok := config.Translations.Suffixes["TargetGroup"]; ok {
+				    tgSuffix = sfxTranslation
+				}
 			}
 			if *dimension.Name == "LoadBalancer" {
 				albSuffix = "alb"
+				if sfxTranslation, ok := config.Translations.Suffixes["LoadBalancer"]; ok {
+				    albSuffix = sfxTranslation
+				}
 			}
 		}
 		if albSuffix != "" && tgSuffix != "" {
@@ -635,6 +641,13 @@ func fixServiceName(serviceName *string, dimensions []*cloudwatch.Dimension) str
 		for _, dimension := range dimensions {
 			if *dimension.Name == "AvailabilityZone" {
 				suffixName = "_az"
+				if sfxTranslation, ok := config.Translations.Suffixes["AvailabilityZone"]; ok {
+				    if len(sfxTranslation) > 0 {
+				        suffixName = "_" + sfxTranslation
+				    } else {
+				        suffixName = ""
+				    }
+				}
 			}
 		}
 	}
