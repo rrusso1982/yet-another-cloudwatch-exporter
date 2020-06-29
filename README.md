@@ -67,6 +67,9 @@ YACE is currently in quick iteration mode. Things will probably break in upcomin
 | Key      | Description                             |
 | -------- | --------------------------------------- |
 | services | A map of service names -> output values |
+| suffixes | A map of suffix translations -> output values |
+
+Suffix translations are currently used for alb:TargetGroup,LoadBalancer and elb:AvailabilityZone
 
 ### Auto-discovery configuration
 
